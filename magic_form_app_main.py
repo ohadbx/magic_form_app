@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import warnings
-import plotly.express as px
+# import plotly.express as px
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Magic Formula Expanded', layout='wide', page_icon='logo2.png', initial_sidebar_state='auto')
@@ -116,23 +116,23 @@ with col2:
         mime='text/csv',
     )
 # st.dataframe(tbl_to_show, width=1600)
-fig = px.scatter(
-    tbl_to_show,
-    x="ROIC Score",
-    y="EPS Score",
-    size="Market Cap [B$]",
-    color='AVG Net Profit Margin [%]',
-    hover_name=tbl_to_show.index,
-    color_continuous_scale="greens"
-)
-fig.update_layout({
-    'plot_bgcolor': 'rgba(255,0,0,0)',
-    'paper_bgcolor': 'rgba(0,255,0,0)'
-})
-st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-fig.update_layout({
-    'plot_bgcolor': 'rgba(255,0,0,200)',
-    'paper_bgcolor': 'rgba(0,255,0,200)'
-})
+# fig = px.scatter(
+#     tbl_to_show,
+#     x="ROIC Score",
+#     y="EPS Score",
+#     size="Market Cap [B$]",
+#     color='AVG Net Profit Margin [%]',
+#     hover_name=tbl_to_show.index,
+#     color_continuous_scale="greens"
+# )
+# fig.update_layout({
+#     'plot_bgcolor': 'rgba(255,0,0,0)',
+#     'paper_bgcolor': 'rgba(0,255,0,0)'
+# })
+# st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+#
+# fig.update_layout({
+#     'plot_bgcolor': 'rgba(255,0,0,200)',
+#     'paper_bgcolor': 'rgba(0,255,0,200)'
+# })
 
