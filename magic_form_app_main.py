@@ -116,15 +116,15 @@ with col2:
         mime='text/csv',
     )
 # st.dataframe(tbl_to_show, width=1600)
-# fig = px.scatter(
-#     tbl_to_show,
-#     x="ROIC Score",
-#     y="EPS Score",
-#     size="Market Cap [B$]",
-#     color='AVG Net Profit Margin [%]',
-#     hover_name=tbl_to_show.index,
-#     color_continuous_scale="greens"
-# )
+fig = px.scatter(
+    tbl_to_show,
+    x="ROIC Score",
+    y="EPS Score",
+    size="Market Cap [B$]",
+    color='AVG Net Profit Margin [%]',
+    hover_name=tbl_to_show.index,
+    color_continuous_scale="greens"
+)
 # fig.update_layout({
 #     'plot_bgcolor': 'rgba(255,0,0,0)',
 #     'paper_bgcolor': 'rgba(0,255,0,0)'
