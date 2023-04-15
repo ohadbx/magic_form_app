@@ -18,10 +18,17 @@ def update_results_table(results_tbl, filters):
 
     # getting data
 
+def switch_plot_state(PLOT_FLAG):
+    if PLOT_FLAG == True:
+        PLOT_FLAG = False
+    else:
+        PLOT_FLAG = True
+
 with pd.HDFStore('data_01.hdf5') as storedata:
     results_tbl = storedata['data_01']
     metadata = storedata.get_storer('data_01').attrs.metadata
 
+PLOT_FLAG = False
 results_tbl["ROIC Score"] = np.nan
 results_tbl["EPS Score"] = np.nan
 results_tbl["Combined Score"] = np.nan
@@ -41,6 +48,14 @@ url = "https://www.magicformulainvesting.com/"
 # prepare website
 st.markdown("<h1 style='text-align: right; color: black;'>נוסחאת הקסם של גרינבלט - מורחב", unsafe_allow_html=True)
 col1, col2 = st.columns(2)
+with col1:
+    with st.expander("Description"):
+        st.markdown("<h6 style='text-align: right; color: black;'> נוסחאת הקסם של ג'ואל גרינבלט מביאה שיטה לסינון ראשוני של מניות העשויות להימצא בתמחור   \n נוח לפני ביצוע הערכה מקיפה", unsafe_allow_html=True)
+        st.markdown("<h6 style='text-align: right; color: black;'> על פי הנוסחא, מדרגים את כל המניות בשוק בסדר יורד על פי התשואה על ההשקעה שלהם. כל חברה מקבלת ניקוד לפי מיקומה ברשימה (1 לחברה הטובה ביותר)", unsafe_allow_html=True)
+        st.markdown("<h6 style='text-align: right; color: black;'> באופן דומה, מבצעים את הדירוג גם לפי הרווחים-למנייה (EPS) של כל חברה", unsafe_allow_html=True)
+        st.markdown("<h6 style='text-align: right; color: black;'> לבסוף, כל חברה מקבלת ציון משוקלל שהוא הסכום של שני הציונים שהוזכרו מעלה", unsafe_allow_html=True)
+        st.markdown( "<h6 style='text-align: right; color: black;'> גרסא מקורית לנוסחאת הקסם אפשר למצוא באתר ",unsafe_allow_html=True)
+        st.markdown("[magicformulainvesting.com](%s)" % url)
 with col2:
     with st.expander("הסבר"):
         st.markdown("<h6 style='text-align: right; color: black;'> נוסחאת הקסם של ג'ואל גרינבלט מביאה שיטה לסינון ראשוני של מניות העשויות להימצא בתמחור   \n נוח לפני ביצוע הערכה מקיפה", unsafe_allow_html=True)
@@ -58,6 +73,21 @@ with col2:
     filters.mkt_cap_upper_limit = st.number_input('Market Cap upper limit [B$]', value=max_market_cap)
 with col3:
     filters.net_profit_margin_lower_limit = st.number_input('Profit Margin lower limit [%]', min_value=0)
+with col4:
+    m = st.markdown("""
+    <style>
+    div.stButton > button:first-child {
+        background-color: rgb(237, 170, 100);
+    }
+    </style>""", unsafe_allow_html=True)
+
+    if st.button('Show Plot'):
+        # switch_plot_state(PLOT_FLAG)
+        if PLOT_FLAG == True:
+            PLOT_FLAG = False
+        else:
+            PLOT_FLAG = True
+
 text_contents = 'This is some text'
 
 filtered_tbl = update_results_table(results_tbl, filters)
@@ -71,36 +101,93 @@ tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EP
                            'Cash Equiv [B$]', 'Long Term Debt [B$]']]
 
 st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
-
-
 data = tbl_to_show
-gb = GridOptionsBuilder.from_dataframe(data)
-# gb.configure_pagination(paginationAutoPageSize=True) # Add pagination
-gb.configure_side_bar() #Add a sidebar
-gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-gridOptions = gb.build()
 
-grid_response = AgGrid(
-    data,
-    gridOptions=gridOptions,
-    data_return_mode='AS_INPUT',
-    update_mode='MODEL_CHANGED',
-    fit_columns_on_grid_load=True,
-    # theme='alpine',  # Add theme color to the table
-    enable_enterprise_modules=True,
-    height=300,
-    width='100%',
-    reload_data=False,
-    wrap_text=True,
-    resizeable=False
-)
+if PLOT_FLAG == True:
+    col1, col2 = st.columns(2)
+    with col1:
+        gb = GridOptionsBuilder.from_dataframe(data)
+        # gb.configure_pagination(paginationAutoPageSize=True) # Add pagination
+        gb.configure_side_bar() #Add a sidebar
+        gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+        gridOptions = gb.build()
 
+        grid_response = AgGrid(
+            data,
+            gridOptions=gridOptions,
+            data_return_mode='AS_INPUT',
+            update_mode='MODEL_CHANGED',
+            fit_columns_on_grid_load=True,
+            # theme='alpine',  # Add theme color to the table
+            enable_enterprise_modules=True,
+            height=300,
+            width='100%',
+            reload_data=False,
+            wrap_text=True,
+            resizeable=False
+        )
+    with col2:
+        fig = px.scatter(
+            tbl_to_show,
+            x="ROIC Score",
+            y="EPS Score",
+            size="Market Cap [B$]",
+            color='AVG Net Profit Margin [%]',
+            hover_name=tbl_to_show.index,
+            color_continuous_scale="greens"
+        )
+        # fig.update_layout({
+        #     'plot_bgcolor': 'rgba(255,0,0,0)',
+        #     'paper_bgcolor': 'rgba(0,255,0,0)'
+        # })
+
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+        # fig.update_layout({
+        #     'plot_bgcolor': 'rgba(255,0,0,200)',
+        #     'paper_bgcolor': 'rgba(0,255,0,200)'
+        # })
+
+
+else:
+    col1, col2 = st.columns([9, 1])
+    with col1:
+        gb = GridOptionsBuilder.from_dataframe(data)
+        # gb.configure_pagination(paginationAutoPageSize=True) # Add pagination
+        gb.configure_side_bar()  # Add a sidebar
+        gb.configure_selection('multiple', use_checkbox=True,
+                               groupSelectsChildren="Group checkbox select children")  # Enable multi-row selection
+        gridOptions = gb.build()
+
+        grid_response = AgGrid(
+            data,
+            gridOptions=gridOptions,
+            data_return_mode='AS_INPUT',
+            update_mode='MODEL_CHANGED',
+            fit_columns_on_grid_load=True,
+            # theme='alpine',  # Add theme color to the table
+            enable_enterprise_modules=True,
+            height=300,
+            width='100%',
+            reload_data=False,
+            wrap_text=True,
+            resizeable=False
+        )
+
+        with col2:
+            st.write('Nothing')
 data = grid_response['data']
 selected = grid_response['selected_rows']
 
 df_selected_rows = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
 st.write('Companies after filtering:', len(data),'Selected  Companies:', len(df_selected_rows))
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
+G = st.markdown("""
+    <style>
+    div.stButton > download_button:first-child {
+        background-color: rgb(37, 190, 37);
+    }
+    </style>""", unsafe_allow_html=True)
 with col1:
     st.download_button(
         label="Download filtered list as CSV",
@@ -116,23 +203,3 @@ with col2:
         mime='text/csv',
     )
 # st.dataframe(tbl_to_show, width=1600)
-fig = px.scatter(
-    tbl_to_show,
-    x="ROIC Score",
-    y="EPS Score",
-    size="Market Cap [B$]",
-    color='AVG Net Profit Margin [%]',
-    hover_name=tbl_to_show.index,
-    color_continuous_scale="greens"
-)
-# fig.update_layout({
-#     'plot_bgcolor': 'rgba(255,0,0,0)',
-#     'paper_bgcolor': 'rgba(0,255,0,0)'
-# })
-st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-# fig.update_layout({
-#     'plot_bgcolor': 'rgba(255,0,0,200)',
-#     'paper_bgcolor': 'rgba(0,255,0,200)'
-# })
-
