@@ -129,8 +129,8 @@ fig = px.scatter(
 #     'plot_bgcolor': 'rgba(255,0,0,0)',
 #     'paper_bgcolor': 'rgba(0,255,0,0)'
 # })
-# st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-#
+st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
 # fig.update_layout({
 #     'plot_bgcolor': 'rgba(255,0,0,200)',
 #     'paper_bgcolor': 'rgba(0,255,0,200)'
