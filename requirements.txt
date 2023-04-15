@@ -2,4 +2,3 @@ requests
 streamlit-aggrid
 pandas
 numpy
-plotly
