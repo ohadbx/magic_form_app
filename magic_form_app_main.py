@@ -13,7 +13,7 @@ class filters:
 
 def update_results_table(results_tbl, filters):
     list_of_tickers = filters.list_of_tickers
-    filtered_tbl = results_tbl[results_tbl['Company Ticker']] in list_of_tickers
+    filtered_tbl = results_tbl[results_tbl.index] in list_of_tickers
     filtered_tbl = filtered_tbl[results_tbl['Market Cap [B$]'] >= filters.mkt_cap_lower_limit]
     filtered_tbl = filtered_tbl[filtered_tbl['Market Cap [B$]'] <= filters.mkt_cap_upper_limit]
     filtered_tbl = filtered_tbl[filtered_tbl['AVG Net Profit Margin [%]'] >= filters.net_profit_margin_lower_limit]
