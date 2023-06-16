@@ -106,7 +106,7 @@ tbl_to_show['Company Ticker'] = tbl_to_show.index
 tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EPS Score', 'Zacks Expected GR [%]', 'Market Cap [B$]','Shareholders Eq. AVG YoY GR [%]',
                            'AVG Net Profit Margin [%]','Revenue AVG YoY GR [%]', 'AVG ROIC', 'AVG EPS',
                            'Operating Income AVG YoY GR [%]', 'Net Income AVG YoY GR [%]', 'EPS AVG YoY GR [%]','Free Cash Flow AVG YoY GR [%]',
-                           'Cash Equiv [B$]', 'Long Term Debt [B$]']]
+                           'Cash Equiv [B$]','Long Term Debt [B$]']]
 
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
 data = tbl_to_show
