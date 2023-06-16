@@ -4,6 +4,7 @@ import pandas as pd
 import warnings
 import plotly.express as px
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
+
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Magic Formula Expanded', layout='wide', page_icon='logo2.png', initial_sidebar_state='auto')
 class filters:
@@ -11,7 +12,9 @@ class filters:
         pass
 
 def update_results_table(results_tbl, filters):
-    filtered_tbl = results_tbl[results_tbl['Market Cap [B$]'] >= filters.mkt_cap_lower_limit]
+    list_of_tickers = filters.list_of_tickers
+    filtered_tbl = results_tbl[results_tbl['Company Ticker']] in list_of_tickers
+    filtered_tbl = filtered_tbl[results_tbl['Market Cap [B$]'] >= filters.mkt_cap_lower_limit]
     filtered_tbl = filtered_tbl[filtered_tbl['Market Cap [B$]'] <= filters.mkt_cap_upper_limit]
     filtered_tbl = filtered_tbl[filtered_tbl['AVG Net Profit Margin [%]'] >= filters.net_profit_margin_lower_limit]
     return filtered_tbl
@@ -63,7 +66,7 @@ with col2:
         st.markdown("[magicformulainvesting.com](%s)" % url)
 
 max_market_cap = max(results_tbl['Market Cap [B$]'])
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     filters.mkt_cap_lower_limit = st.number_input('Market Cap lower limit [B$]', min_value=0, value=1)
 with col2:
@@ -85,7 +88,9 @@ with col4:
         else:
             PLOT_FLAG = True
 
-text_contents = 'This is some text'
+with col5:
+    filters.list_of_tickers = st.text_input('Manual Ticker search')
+
 
 filtered_tbl = update_results_table(results_tbl, filters)
 filtered_tbl.sort_values(by=['Combined Score'])
@@ -153,14 +158,14 @@ else:
         # gb.configure_pagination(paginationAutoPageSize=True) # Add pagination
         gb.configure_side_bar()  # Add a sidebar
         gb.configure_selection('multiple', use_checkbox=True,
-                               groupSelectsChildren="Group checkbox select children")  # Enable multi-row selection
+                               groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
         gridOptions = gb.build()
 
         grid_response = AgGrid(
             data,
             gridOptions=gridOptions,
-            data_return_mode='AS_INPUT',
-            update_mode='MODEL_CHANGED',
+            data_return_mode = 'AS_INPUT',
+            update_mode = 'MODEL_CHANGED',
             fit_columns_on_grid_load=True,
             # theme='alpine',  # Add theme color to the table
             enable_enterprise_modules=True,
