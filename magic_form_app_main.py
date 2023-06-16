@@ -5,7 +5,7 @@ import warnings
 import plotly.express as px
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 
-## To run the app locally past in the Terminal:  python -m streamlit run "C:\Users\OHAD\Google Drive\Python\st_webapp\magic_form_app_main.py"
+## To run the app locally paste in the Terminal:  python -m streamlit run "C:\Users\OHAD\Google Drive\Python\st_webapp\magic_form_app_main.py"
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Simple stock screener', layout='wide', page_icon='logo2.png', initial_sidebar_state='auto')
 selected = []
@@ -113,12 +113,11 @@ grid_response = AgGrid(
     enable_enterprise_modules=True,
     height=350,
     width='100%',
-    reload_data=True,
+    reload_data=False,
     wrap_text=True,
     # alwaysShowHorizontalScroll= True,
     # ShowHorizontalScroll=True,
-    resizeable=True
-)
+    resizeable=True)
 
 data = grid_response['data']
 selected = grid_response['selected_rows']
