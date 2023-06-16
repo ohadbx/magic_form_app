@@ -37,7 +37,7 @@ tbl_to_show= results_tbl
 df_selected_rows =results_tbl
 url = "https://www.magicformulainvesting.com/"
 # prepare website
-# st.markdown("<h1 style='text-align: right; color: black;'>נוסחאת הקסם של גרינבלט - מורחב", unsafe_allow_html=True)
+
 col1, col2, col3, col4 = st.columns([6,1,2,2])
 with col1:
     with st.expander("Description and disclaimer"):
@@ -104,7 +104,7 @@ tbl_to_show['Company Ticker'] = tbl_to_show.index
 
 # Re-arrange column order:
 tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EPS Score', 'Zacks Expected GR [%]', 'Market Cap [B$]','Shareholders Eq. AVG YoY GR [%]',
-                           'AVG Net Profit Margin [%]','Revenue AVG YoY GR [%]',
+                           'AVG Net Profit Margin [%]','Revenue AVG YoY GR [%]', 'AVG ROIC', 'AVG EPS',
                            'Operating Income AVG YoY GR [%]', 'Net Income AVG YoY GR [%]', 'EPS AVG YoY GR [%]','Free Cash Flow AVG YoY GR [%]',
                            'Cash Equiv [B$]', 'Long Term Debt [B$]']]
 
@@ -141,7 +141,9 @@ st.write('Number of stocks (unfiltered):', len(results_tbl),'Number of stocks (f
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
 
+
 with col2:
+    st.write('X,Y  - ROIC Score Vs. EPS Score (Higher is better), Profit Margin (color), Market Cap (size)')
     fig = px.scatter(tbl_to_show,
         x="ROIC Score",
         y="EPS Score",
