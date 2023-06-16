@@ -44,12 +44,15 @@ with col1:
         st.markdown("<h20 style='text-align: left; color: black;'> This is an interactive table with some analyzed stocks data.   \n"
                     "The raw data is fetched freely from different websites across the web and key metric are computed and shown. \n"
                     "You can use the built-in sort, search and filter options in the top of each column and then download the filtered or selected list using one of the buttons below. \n"
-                    "ad·di·tion·al·ly a graphical view is available based each comapnie's relative ROIC and EPS rank, as proposed by Joel's Greenblatt Magic Formula (link below).\n" 
+                    "Additionally, a graphical view is available based each company's relative ROIC and EPS rank, as proposed by Joel's Greenblatt Magic Formula:.\n",
+                    unsafe_allow_html=True)
+        st.markdown("[magicformulainvesting.com](%s)" % url)
+        st.markdown("<h20 style='text-align: left; color: black;'>"
                     "DISCLAIMER: The creator of this app cannot and will not be responsible for the validity of the raw data or calculations, as well as any harm that may come to the user from using this app on his computer or making decisions based on it.\n"
                     "Some user interaction may be recorded or monitored for further development and improvemnts of the app",
                     unsafe_allow_html=True)
 
-        st.markdown("[magicformulainvesting.com](%s)" % url)
+
 # with col2:
 #     with st.expander("הסבר"):
 #         st.markdown("<h6 style='text-align: right; color: black;'> נוסחאת הקסם של ג'ואל גרינבלט מביאה שיטה לסינון ראשוני של מניות העשויות להימצא בתמחור   \n נוח לפני ביצוע הערכה מקיפה", unsafe_allow_html=True)
