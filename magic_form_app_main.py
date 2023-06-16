@@ -15,9 +15,9 @@ with pd.HDFStore('data_01.hdf5') as storedata:
     metadata = storedata.get_storer('data_01').attrs.metadata
 
 
-print(f"Loaded table {results_tbl.head(n=10)} with columns:")
-for col in results_tbl.columns:
-    print(col)
+# print(f"Loaded table {results_tbl.head(n=10)} with columns:")
+# for col in results_tbl.columns:
+#     print(col)
 results_tbl["ROIC Score"] = np.nan
 results_tbl["EPS Score"] = np.nan
 results_tbl["Combined Score"] = np.nan
@@ -62,21 +62,6 @@ with col1:
 #         st.markdown( "<h6 style='text-align: right; color: black;'> גרסא מקורית לנוסחאת הקסם אפשר למצוא באתר ",unsafe_allow_html=True)
 #         st.markdown("[magicformulainvesting.com](%s)" % url)
 
-
-with col4:
-    st.write('Download as CSV:')
-    col11, col22 =st.columns(2)
-    with col11:
-        st.download_button(label="All",
-            data=tbl_to_show.to_csv().encode('utf-8'),
-            file_name='MagicFormula.csv',
-            mime='text/csv')
-    with col22:
-        st.download_button(label="Only Selected",
-            data=df_selected_rows.to_csv().encode('utf-8'),
-            file_name='MagicFormula.csv',
-            mime='text/csv')
-
 # with col3:
 #     st.write('')
 #     if st.button("Download Selected companies for Valuation"):
@@ -96,10 +81,10 @@ with col4:
 #             print(f"Downloading valuation for {ticker} ")
 #             stock_summary = get_single_stock(common_input, ticker, MODE='ONLINE')
 
-col1, col2, col3, col4, col5 = st.columns(5)
+
 filtered_tbl = results_tbl
 filtered_tbl.sort_values(by=['Combined Score'])
-tbl_to_show = filtered_tbl
+tbl_to_show = results_tbl
 tbl_to_show['Company Ticker'] = tbl_to_show.index
 
 # Re-arrange column order:
@@ -109,9 +94,10 @@ tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EP
                            'Cash Equiv [B$]','Long Term Debt [B$]']]
 
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
-data = tbl_to_show
+data = results_tbl
+# print(f'len tbl_to_show: {tbl_to_show}')
 gb = GridOptionsBuilder.from_dataframe(tbl_to_show)
-gb.configure_pagination(paginationAutoPageSize=False) # Add pagination
+# gb.configure_pagination() # Add pagination
 gb.configure_side_bar()  # Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
 gridOptions = gb.build()
@@ -121,27 +107,32 @@ grid_response = AgGrid(
     # data_return_mode = 'AS_INPUT',
     data_return_mode='FILTERED',
     update_mode = 'MODEL_CHANGED',
-    fit_columns_on_grid_load=False,
+    fit_columns_on_grid_load=True,
     sizeColumnsToFit= True,
     # theme='alpine',  # Add theme color to the table
     enable_enterprise_modules=True,
     height=350,
     width='100%',
-    reload_data=False,
+    reload_data=True,
     wrap_text=True,
-    alwaysShowHorizontalScroll= True,
-    ShowHorizontalScroll=True,
-    resizeable=False
+    # alwaysShowHorizontalScroll= True,
+    # ShowHorizontalScroll=True,
+    resizeable=True
 )
 
 data = grid_response['data']
 selected = grid_response['selected_rows']
 df_selected_rows = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
-st.write('Number of stocks (unfiltered):', len(results_tbl),'Number of stocks (filtered):', len(data),'Selected  Companies:', len(df_selected_rows))
+col1, col2 = st.columns([8,1])
+with col1:
+    st.write('Data Update:', results_tbl_date,'Number of stocks (unfiltered):', len(results_tbl),'Number of stocks (filtered):', len(data),'Selected  Companies:', len(df_selected_rows))
+with col2:
+        st.download_button(label="Download Selected as CSV",
+        data=df_selected_rows.to_csv().encode('utf-8'),
+        file_name='MagicFormula.csv',mime='text/csv')
+
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
-
-
 with col2:
     st.write('X,Y  - ROIC Score Vs. EPS Score (Higher is better), Profit Margin (color), Market Cap (size)')
     fig = px.scatter(tbl_to_show,
