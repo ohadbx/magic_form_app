@@ -8,7 +8,7 @@ from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 ## To run the app locally past in the Terminal:  python -m streamlit run "C:\Users\OHAD\Google Drive\Python\st_webapp\magic_form_app_main.py"
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Simple stock screener', layout='wide', page_icon='logo2.png', initial_sidebar_state='auto')
-
+selected = []
 ## getting data
 with pd.HDFStore('data_01.hdf5') as storedata:
     results_tbl = storedata['data_01']
@@ -77,25 +77,25 @@ with col4:
             file_name='MagicFormula.csv',
             mime='text/csv')
 
-with col3:
-    st.write('')
-    if st.button("Download Selected companies for Valuation"):
-        from main import get_single_stock
-        class INPUTS():
-            def __init__(self):
-                self.statements = ["Cash+Flow", "Balance+Sheet", "Income+Statement", "Metrics", "Growth"]
+# with col3:
+#     st.write('')
+#     if st.button("Download Selected companies for Valuation"):
+#         from main import get_single_stock
+#         class INPUTS():
+#             def __init__(self):
+#                 self.statements = ["Cash+Flow", "Balance+Sheet", "Income+Statement", "Metrics", "Growth"]
+#
+#         common_input = INPUTS()
+#         df_selected_rows = pd.DataFrame(selected)  # Pass the selected rows to a new dataframe df
+#         list_of_companies_to_evaluate = df_selected_rows['Company Ticker']
+#         if len(list_of_companies_to_evaluate):
+#             print("Too many companies selected, downloading only first 5")
+#             list_of_companies_to_evaluate = list_of_companies_to_evaluate[:5]
+#         print(f"Downloading companies: {list_of_companies_to_evaluate}")
+#         for ticker in list_of_companies_to_evaluate:
+#             print(f"Downloading valuation for {ticker} ")
+#             stock_summary = get_single_stock(common_input, ticker, MODE='ONLINE')
 
-        common_input = INPUTS()
-        df_selected_rows = pd.DataFrame(selected)  # Pass the selected rows to a new dataframe df
-        list_of_companies_to_evaluate = df_selected_rows['Company Ticker']
-        if len(list_of_companies_to_evaluate):
-            print("Too many companies selected, downloading only first 5")
-            list_of_companies_to_evaluate = list_of_companies_to_evaluate[:5]
-        print(f"Downloading companies: {list_of_companies_to_evaluate}")
-        for ticker in list_of_companies_to_evaluate:
-            print(f"Downloading valuation for {ticker} ")
-            stock_summary = get_single_stock(common_input, ticker, MODE='ONLINE')
-max_market_cap = max(results_tbl['Market Cap [B$]'])
 col1, col2, col3, col4, col5 = st.columns(5)
 filtered_tbl = results_tbl
 filtered_tbl.sort_values(by=['Combined Score'])
