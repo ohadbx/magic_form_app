@@ -103,10 +103,10 @@ tbl_to_show = filtered_tbl
 tbl_to_show['Company Ticker'] = tbl_to_show.index
 
 # Re-arrange column order:
-tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EPS Score', 'ShareHolders Equity [B$]', 'Market Cap [B$]',
-                           'AVG Net Profit Margin [%]','Shareholders Eq. AVG YoY GR [%]','Revenue AVG YoY GR [%]',
+tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EPS Score', 'Zacks Expected GR [%]', 'Market Cap [B$]','Shareholders Eq. AVG YoY GR [%]',
+                           'AVG Net Profit Margin [%]','Revenue AVG YoY GR [%]',
                            'Operating Income AVG YoY GR [%]', 'Net Income AVG YoY GR [%]', 'EPS AVG YoY GR [%]','Free Cash Flow AVG YoY GR [%]',
-                           'Cash Equiv [B$]', 'Long Term Debt [B$]', 'Zacks Expected GR [%]']]
+                           'Cash Equiv [B$]', 'Long Term Debt [B$]']]
 
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
 data = tbl_to_show
@@ -125,7 +125,7 @@ grid_response = AgGrid(
     sizeColumnsToFit= True,
     # theme='alpine',  # Add theme color to the table
     enable_enterprise_modules=True,
-    height=300,
+    height=350,
     width='100%',
     reload_data=False,
     wrap_text=True,
@@ -137,7 +137,7 @@ grid_response = AgGrid(
 data = grid_response['data']
 selected = grid_response['selected_rows']
 df_selected_rows = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
-st.write('Number of stocks (unfiltered):', len(data),'Selected  Companies:', len(df_selected_rows),'FILTERED  Companies:', len(df_selected_rows))
+st.write('Number of stocks (unfiltered):', len(results_tbl),'Number of stocks (filtered):', len(data),'Selected  Companies:', len(df_selected_rows))
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
 
