@@ -111,7 +111,7 @@ tbl_to_show = tbl_to_show[['Company Ticker', 'Combined Score', 'ROIC Score', 'EP
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
 data = tbl_to_show
 gb = GridOptionsBuilder.from_dataframe(tbl_to_show)
-gb.configure_pagination(paginationAutoPageSize=True) # Add pagination
+gb.configure_pagination(paginationAutoPageSize=False) # Add pagination
 gb.configure_side_bar()  # Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
 gridOptions = gb.build()
@@ -131,7 +131,7 @@ grid_response = AgGrid(
     wrap_text=True,
     alwaysShowHorizontalScroll= True,
     ShowHorizontalScroll=True,
-    resizeable=True
+    resizeable=False
 )
 
 data = grid_response['data']
