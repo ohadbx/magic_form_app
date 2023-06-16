@@ -139,6 +139,6 @@ with col2:
         y="EPS Score",
         size="Market Cap [B$]",
         color='AVG Net Profit Margin [%]',
-        hover_name=data.index,
+        hover_name=data['Company Ticker'],
         color_continuous_scale="greens")
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
