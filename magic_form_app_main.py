@@ -134,11 +134,11 @@ col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
 with col2:
     st.write('X,Y  - ROIC Score Vs. EPS Score (Higher is better), Profit Margin (color), Market Cap (size)')
-    fig = px.scatter(tbl_to_show,
+    fig = px.scatter(data,
         x="ROIC Score",
         y="EPS Score",
         size="Market Cap [B$]",
         color='AVG Net Profit Margin [%]',
-        hover_name=tbl_to_show.index,
+        hover_name=data.index,
         color_continuous_scale="greens")
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
