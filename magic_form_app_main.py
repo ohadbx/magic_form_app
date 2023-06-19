@@ -84,7 +84,8 @@ with col2:
                            'AVG Net Profit Margin [%]', 'AVG ROIC', 'AVG EPS', 'Cash Equiv [B$]','Long Term Debt [B$]']]
         st.session_state['preset'] = 'cagr'
 with col3:
-    theme_selection = st.selectbox('Table theme', ('default', 'light','dark', 'blue', 'fresh','material'))
+    # theme_selection = st.selectbox('Table theme', ('default', 'light','dark', 'blue', 'fresh','material'))
+    theme_selection = st.selectbox('Table theme', ('default', 'light', 'dark', 'blue', 'fresh', 'material'))
 if theme_selection == 'default':
     theme_selection = 'streamlit'
 # with col2:
