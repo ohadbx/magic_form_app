@@ -85,7 +85,7 @@ with col2:
         st.session_state['preset'] = 'cagr'
 with col3:
     # theme_selection = st.selectbox('Table theme', ('default', 'light','dark', 'blue', 'fresh','material'))
-    theme_selection = st.selectbox('Table theme', ('default', 'light', 'dark', 'blue', 'fresh', 'material'))
+    theme_selection = st.selectbox('Table theme', ('default', 'material'))
 if theme_selection == 'default':
     theme_selection = 'streamlit'
 # with col2:
