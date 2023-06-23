@@ -124,7 +124,7 @@ grid_response = AgGrid(
     # alwaysShowHorizontalScroll= True,
     # ShowHorizontalScroll=True,
     custom_css=custom_css,
-    resizeable=False)
+    resizeable=True)
 gb.configure_side_bar()  # Add a sidebar
 
 data = grid_response['data']
