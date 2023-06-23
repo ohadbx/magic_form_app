@@ -98,7 +98,7 @@ if theme_selection == 'default':
 #         st.markdown("[magicformulainvesting.com](%s)" % url)
 
 gb = GridOptionsBuilder.from_dataframe(data)
-gb.configure_pagination() # Add pagination
+# gb.configure_pagination() # Add pagination
 gb.configure_side_bar()  # Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
 gridOptions = gb.build()
@@ -124,7 +124,8 @@ grid_response = AgGrid(
     # alwaysShowHorizontalScroll= True,
     # ShowHorizontalScroll=True,
     custom_css=custom_css,
-    resizeable=True)
+    # resizeable=True
+)
 gb.configure_side_bar()  # Add a sidebar
 
 data = grid_response['data']
