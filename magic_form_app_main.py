@@ -108,7 +108,7 @@ custom_css = {
     ".ag-header-group-cell-label": {"justify-content": "left"}
     }
 grid_response = AgGrid(
-    data,
+    data.head(50),
     gridOptions = GridOptionsBuilder.from_dataframe(data).build(),
     # gridOptions=gridOptions,
     # # data_return_mode = 'AS_INPUT',
