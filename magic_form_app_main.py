@@ -121,8 +121,8 @@ grid_response = AgGrid(
     width='100%',
     reload_data=False,
     wrap_text=True,
-    # alwaysShowHorizontalScroll= True,
-    # ShowHorizontalScroll=True,
+    alwaysShowHorizontalScroll= True,
+    ShowHorizontalScroll=True,
     custom_css=custom_css,
     # resizeable=True
 )
