@@ -109,21 +109,21 @@ custom_css = {
     }
 grid_response = AgGrid(
     data,
-    gridOptions=gridOptions,
-    # data_return_mode = 'AS_INPUT',
-    data_return_mode='FILTERED',
-    update_mode = 'MODEL_CHANGED',
-    fit_columns_on_grid_load=False,
-    sizeColumnsToFit=True,
-    theme=theme_selection,  # Add theme color to the table
-    enable_enterprise_modules=True,
-    height=350,
-    width='100%',
-    reload_data=False,
-    wrap_text=True,
-    # alwaysShowHorizontalScroll= True,
-    # ShowHorizontalScroll=True,
-    custom_css=custom_css,
+    # gridOptions=gridOptions,
+    # # data_return_mode = 'AS_INPUT',
+    # data_return_mode='FILTERED',
+    # update_mode = 'MODEL_CHANGED',
+    # fit_columns_on_grid_load=False,
+    # sizeColumnsToFit=True,
+    # theme=theme_selection,  # Add theme color to the table
+    # enable_enterprise_modules=True,
+    # height=350,
+    # width='100%',
+    # reload_data=False,
+    # wrap_text=True,
+    # # alwaysShowHorizontalScroll= True,
+    # # ShowHorizontalScroll=True,
+    # custom_css=custom_css,
     # resizeable=True
 )
 
