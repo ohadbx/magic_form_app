@@ -97,11 +97,11 @@ if theme_selection == 'default':
 #         st.markdown( "<h6 style='text-align: right; color: black;'> גרסא מקורית לנוסחאת הקסם אפשר למצוא באתר ",unsafe_allow_html=True)
 #         st.markdown("[magicformulainvesting.com](%s)" % url)
 
-gb = GridOptionsBuilder.from_dataframe(data)
+# gb =
 # gb.configure_pagination() # Add pagination
-gb.configure_side_bar()  # Add a sidebar
-gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
-gridOptions = gb.build()
+# gb.configure_side_bar()  # Add a sidebar
+# gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
+gridOptions = GridOptionsBuilder.from_dataframe(data).build()
 custom_css = {
     ".ag-header-cell-label": {"justify-content": "left"},
     # ".ag-header-cell-label": {"font-size": "22px"},
@@ -126,7 +126,6 @@ grid_response = AgGrid(
     custom_css=custom_css,
     # resizeable=True
 )
-gb.configure_side_bar()  # Add a sidebar
 
 data = grid_response['data']
 st.write('')
