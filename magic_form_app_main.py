@@ -98,7 +98,7 @@ if theme_selection == 'default':
 #         st.markdown("[magicformulainvesting.com](%s)" % url)
 
 gb = GridOptionsBuilder.from_dataframe(data)
-# gb.configure_pagination() # Add pagination
+gb.configure_pagination() # Add pagination
 gb.configure_side_bar()  # Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
 gridOptions = gb.build()
@@ -113,7 +113,7 @@ grid_response = AgGrid(
     # data_return_mode = 'AS_INPUT',
     data_return_mode='FILTERED',
     update_mode = 'MODEL_CHANGED',
-    fit_columns_on_grid_load=False,
+    fit_columns_on_grid_load=True,
     sizeColumnsToFit= True,
     theme=theme_selection,  # Add theme color to the table
     enable_enterprise_modules=True,
@@ -124,9 +124,11 @@ grid_response = AgGrid(
     # alwaysShowHorizontalScroll= True,
     # ShowHorizontalScroll=True,
     custom_css=custom_css,
-    resizeable=True)
+    resizeable=False)
 
 data = grid_response['data']
+st.write('')
+st.write('')
 df_selected_rows = pd.DataFrame(grid_response['selected_rows']) #Pass the selected rows to a new dataframe df
 col1, col2 = st.columns([8,1])
 with col1:
