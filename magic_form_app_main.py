@@ -106,7 +106,9 @@ custom_css = {
     ".ag-header-cell-label": {"justify-content": "left"},
     # ".ag-header-cell-label": {"font-size": "22px"},
     ".ag-header-group-cell-label": {"justify-content": "left"},
-    "gridToolBar": {"padding-bottom": "100px !important"}
+    "gridToolBar": {"padding-bottom": "100px !important"},
+    "ag-theme-streamlit": {"border" : "30px", "padding" : "10px"},
+
 
     }
 grid_response = AgGrid(
