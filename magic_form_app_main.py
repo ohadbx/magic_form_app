@@ -46,18 +46,18 @@ tbl_all = tbl_to_show[['Ticker', 'Combined Rank', 'ROIC Rank', 'EPS Rank', 'Zack
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
 data = tbl_all
 col1, col2, col3 = st.columns([6,2,1])
-with col1:
-    with st.expander("Description and disclaimer"):
-        st.markdown("<h20 style='text-align: left; color: black;'> This is an interactive table with some analyzed stocks data.   \n"
-                    "The raw data is fetched freely from different websites across the web and key metric are computed and shown. \n"
-                    "You can use the built-in sort, search and filter options in the top of each column and then download the filtered or selected list using one of the buttons below. \n"
-                    "Additionally, a graphical view is available based each company's relative ROIC and EPS rank, as proposed by Joel's Greenblatt Magic Formula:.\n",
-                    unsafe_allow_html=True)
-        st.markdown("[magicformulainvesting.com](%s)" % url)
-        st.markdown("<h20 style='text-align: left; color: black;'>"
-                    "DISCLAIMER: The creator of this app cannot and will not be responsible for the validity of the raw data or calculations, as well as any harm that may come to the user from using this app on his computer or making decisions based on it.\n"
-                    "Some user interaction may be recorded or monitored for further development and improvemnts of the app",
-                    unsafe_allow_html=True)
+# with col1:
+#     with st.expander("Description and disclaimer"):
+#         st.markdown("<h20 style='text-align: left; color: black;'> This is an interactive table with some analyzed stocks data.   \n"
+#                     "The raw data is fetched freely from different websites across the web and key metric are computed and shown. \n"
+#                     "You can use the built-in sort, search and filter options in the top of each column and then download the filtered or selected list using one of the buttons below. \n"
+#                     "Additionally, a graphical view is available based each company's relative ROIC and EPS rank, as proposed by Joel's Greenblatt Magic Formula:.\n",
+#                     unsafe_allow_html=True)
+#         st.markdown("[magicformulainvesting.com](%s)" % url)
+#         st.markdown("<h20 style='text-align: left; color: black;'>"
+#                     "DISCLAIMER: The creator of this app cannot and will not be responsible for the validity of the raw data or calculations, as well as any harm that may come to the user from using this app on his computer or making decisions based on it.\n"
+#                     "Some user interaction may be recorded or monitored for further development and improvemnts of the app",
+#                     unsafe_allow_html=True)
 
 with col2:
     preset_selection = st.selectbox('Table Preset', ('All', 'Megic Formula', 'YoY', 'CAGR'))
