@@ -97,35 +97,33 @@ if theme_selection == 'default':
 #         st.markdown( "<h6 style='text-align: right; color: black;'> גרסא מקורית לנוסחאת הקסם אפשר למצוא באתר ",unsafe_allow_html=True)
 #         st.markdown("[magicformulainvesting.com](%s)" % url)
 
-# gb =
+gb = GridOptionsBuilder.from_dataframe(data)
 # gb.configure_pagination() # Add pagination
-# gb.configure_side_bar()  # Add a sidebar
-# gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
-gridOptions = GridOptionsBuilder.from_dataframe(data).build()
+gb.configure_side_bar()  # Add a sidebar
+gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren = "Group checkbox select children")  # Enable multi-row selection
+gridOptions = gb.build()
 custom_css = {
     ".ag-header-cell-label": {"justify-content": "left"},
     # ".ag-header-cell-label": {"font-size": "22px"},
     ".ag-header-group-cell-label": {"justify-content": "left"}
     }
 grid_response = AgGrid(
-    data.head(50),
-    gridOptions = GridOptionsBuilder.from_dataframe(data).build(),
-    # gridOptions=gridOptions,
-    # # data_return_mode = 'AS_INPUT',
-    # data_return_mode='FILTERED',
-    # update_mode = 'MODEL_CHANGED',
-    # fit_columns_on_grid_load=False,
-    # sizeColumnsToFit=True,
-    # theme=theme_selection,  # Add theme color to the table
-    # enable_enterprise_modules=True,
+    data,
+    gridOptions=gridOptions,
+    # data_return_mode = 'AS_INPUT',
+    data_return_mode='FILTERED',
+    update_mode = 'MODEL_CHANGED',
+    fit_columns_on_grid_load=False,
+    sizeColumnsToFit=True,
+    theme=theme_selection,  # Add theme color to the table
+    enable_enterprise_modules=True,
     height=350,
-    maxheight=100,
-    # width='100%',
-    # reload_data=False,
-    # wrap_text=True,
-    # # alwaysShowHorizontalScroll= True,
-    # # ShowHorizontalScroll=True,
-    # custom_css=custom_css,
+    width='100%',
+    reload_data=False,
+    wrap_text=True,
+    # alwaysShowHorizontalScroll= True,
+    # ShowHorizontalScroll=True,
+    custom_css=custom_css,
     # resizeable=True
 )
 
