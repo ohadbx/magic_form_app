@@ -139,7 +139,7 @@ with col2:
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
 with col2:
-    if st.session_state['preset'] == 'all' or st.session_state['preset'] == 'magic_formula':
+    if len(data)>0 and (st.session_state['preset'] == 'all' or st.session_state['preset'] == 'magic_formula'):
         st.write('X,Y  - ROIC Rank Vs. EPS Rank (Higher is better), Profit Margin (color), Market Cap (size)')
         fig = px.scatter(data,
             x="ROIC Rank",
