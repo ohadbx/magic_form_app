@@ -105,7 +105,9 @@ gridOptions = gb.build()
 custom_css = {
     ".ag-header-cell-label": {"justify-content": "left"},
     # ".ag-header-cell-label": {"font-size": "22px"},
-    ".ag-header-group-cell-label": {"justify-content": "left"}
+    ".ag-header-group-cell-label": {"justify-content": "left"},
+    "gridToolBar": {"padding-bottom": "100px !important"}
+
     }
 grid_response = AgGrid(
     data,
@@ -117,7 +119,7 @@ grid_response = AgGrid(
     sizeColumnsToFit=True,
     theme=theme_selection,  # Add theme color to the table
     enable_enterprise_modules=True,
-    height=600,
+    height=300,
     width='100%',
     reload_data=False,
     wrap_text=True,
