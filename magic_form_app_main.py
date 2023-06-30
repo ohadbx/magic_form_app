@@ -5,7 +5,8 @@ import warnings
 import plotly.express as px
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 
-# TODO: add preset for owners equity
+# DO: add preset for owners earning
+# DO: add a summary of all filters and save it to excel
 ## To run the app locally paste in the Terminal:  python -m streamlit run "C:\Users\OHAD\Google Drive\Python\st_webapp\magic_form_app_main.py"
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Simple stock screener', layout='wide', page_icon='logo2.png', initial_sidebar_state='auto')
@@ -42,7 +43,7 @@ tbl_to_show = tbl_to_show[tbl_to_show.columns[::-1]] # reverse
 tbl_all = tbl_to_show[['Ticker', 'Combined Rank', 'ROIC Rank', 'EPS Rank', 'Zacks Expected GR [%]', 'Market Cap [B$]','Shareholders Eq. AVG YoY GR [%]',
                            'AVG Net Profit Margin [%]','Revenue AVG YoY GR [%]', 'AVG ROIC', 'AVG EPS',
                            'Operating Income AVG YoY GR [%]', 'Net Income AVG YoY GR [%]', 'EPS AVG YoY GR [%]','Free Cash Flow AVG YoY GR [%]',
-                           'Cash Equiv [B$]','Long Term Debt [B$]']]
+                           'Cash Equiv [B$]','Long Term Debt [B$]', 'Diff from 52 Wk High [%]','Diff from 52 Wk Low [%]']]
 
 # st.write('Last Update:', results_tbl_date, 'Number of stocks (unfiltered):', len(results_tbl), 'Number of stocks (after filtering):', len(filtered_tbl) )
 data = tbl_all
