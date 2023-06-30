@@ -147,16 +147,30 @@ with col2:
 
 col1, col2, col3, col4, col5, col6, col6, col6, col6, col6 = st.columns(10)
 col1, col2, = st.columns(2)
+
+data['Market Cap [B$]'] = data['Market Cap [B$]'].astype(float) # DO: check why this is needed only for this columns
 with col2:
     if len(data)>0 and (st.session_state['preset'] == 'all' or st.session_state['preset'] == 'magic_formula'):
+        # temp =data["Market Cap [B$]"]>0
+        data_to_plot = data[data["Market Cap [B$]"]>0]
+        print(temp.head())
+        print(len(temp))
+        print(len(data))
+        # data_to_plot = data
         st.write('X,Y  - ROIC Rank Vs. EPS Rank (Higher is better), Profit Margin (color), Market Cap (size)')
-        fig = px.scatter(data,
+        fig = px.scatter(data_to_plot,
             x="ROIC Rank",
             y="EPS Rank",
             size="Market Cap [B$]",
-            color='AVG Net Profit Margin [%]',
-            hover_name=data['Ticker'],
+            hover_name=data_to_plot['Ticker'],
             color_continuous_scale="greens")
+        # fig = px.scatter(data,
+        #     x="ROIC Rank",
+        #     y="EPS Rank",
+        #     size="Market Cap [B$]",
+        #     color='AVG Net Profit Margin [%]',
+        #     hover_name=data['Ticker'],
+        #     color_continuous_scale="greens")
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 #     if st.button("Download Selected companies for Valuation"):
 #         from main import get_single_stock
